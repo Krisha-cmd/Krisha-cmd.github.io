@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Localhost Example</title>
+  <title>Your Website</title>
 </head>
 <body>
-  <h1>Hello World</h1>
+  <h1>Hello Krisha!</h1>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const variableString = urlParams.get('variable');
-
-      if (variableString) {
+      const urlParts = window.location.pathname.split('/');
+      const lastPart = urlParts[urlParts.length - 1];
+      const [param, variableString] = lastPart.split('=');
+      if (param === 'variable' && variableString) {
         localStorage.setItem('customVariable', variableString);
         console.log('Variable String stored in local storage:', variableString);
+        window.location.replace('/');
       }
-
-      window.location.replace('index.html');
     });
-
   </script>
 </body>
 </html>
