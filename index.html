@@ -1,7 +1,26 @@
-<html>
-  <head>
-  </head>
-  <body>
-    <h1>Hello World</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Localhost Example</title>
+</head>
+<body>
+  <h1>Hello World</h1>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const variableString = urlParams.get('variable');
+
+      if (variableString) {
+        localStorage.setItem('customVariable', variableString);
+        console.log('Variable String stored in local storage:', variableString);
+      }
+
+      window.location.replace('index.html');
+    });
+
+  </script>
+</body>
 </html>
