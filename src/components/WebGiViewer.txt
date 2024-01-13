@@ -1,0 +1,111 @@
+import React, { useRef, useState, useCallback, forwardRef, useImperativeHandle, useEffect } from "react";
+import {
+    ViewerApp,
+    AssetManagerPlugin,
+    GBufferPlugin, FullScreenPlugin, DropzonePlugin, ProgressivePlugin, TonemapPlugin,
+    SSRPlugin, SSAOPlugin, DiamondPlugin, FrameFadePlugin, GLTFAnimationPlugin, GroundPlugin, 
+    BloomPlugin, AnisotropyPlugin, ThinFilmLayerPlugin, NoiseBumpMaterialPlugin, CustomBumpMapPlugin, 
+    VelocityBufferPlugin, TemporalAAPlugin, CameraViewPlugin, 
+    RandomizedDirectionalLightPlugin, HDRiGroundPlugin, DepthOfFieldPlugin, SSContactShadows,ClearcoatTintPlugin,
+    KTX2LoadPlugin, CombinedPostPlugin, ChromaticAberrationPlugin, LUTPlugin, VignettePlugin, FilmicGrainPlugin, GammaCorrectionPlugin, TriplanarUVMappingPlugin, FragmentClippingExtensionPlugin, GLTFKHRMaterialVariantsPlugin, SSGIPlugin, STLLoadPlugin, NormalBufferPlugin, SSBevelPlugin, ObjMtlLoadPlugin, Rhino3dmLoadPlugin, FBXLoadPlugin,EXRLoadPlugin,GLTFMeshOptPlugin,PresetLibraryPlugin,SceneLoopPlugin, ParallaxCameraControllerPlugin, LoadingScreenPlugin
+  } from "webgi";
+//   import robot from '../assets/robots.glb'
+
+  
+
+import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+function WebGiViewer() {
+    const canvasRef = useRef(null)
+
+    async function addBasePluginsCustom(viewer, {ground = true, bloom = true, depthTonemap = true, enableDrop = false, importPopup = false} = {}) {
+        await viewer.getOrAddPlugin(AssetManagerPlugin)
+    
+        if (importPopup) await viewer.getOrAddPlugin(LoadingScreenPlugin)
+    
+        await viewer.getOrAddPlugin(GBufferPlugin)
+        await viewer.getOrAddPlugin(FullScreenPlugin)
+        if (enableDrop) await viewer.getOrAddPlugin(DropzonePlugin)
+        await viewer.addPlugin(new ProgressivePlugin(32))
+        await viewer.getOrAddPlugin(CombinedPostPlugin)
+        await viewer.getOrAddPlugin(ChromaticAberrationPlugin)
+    
+        await viewer.addPlugin(new TonemapPlugin(depthTonemap || !viewer.useRgbm))
+        await viewer.getOrAddPlugin(LUTPlugin)
+        await viewer.getOrAddPlugin(VignettePlugin)
+        await viewer.getOrAddPlugin(FilmicGrainPlugin)
+        await viewer.getOrAddPlugin(GammaCorrectionPlugin)
+    
+        await viewer.getOrAddPlugin(SSRPlugin)
+        await viewer.getOrAddPlugin(SSAOPlugin)
+        await viewer.getOrAddPlugin(DiamondPlugin)
+        await viewer.getOrAddPlugin(FrameFadePlugin)
+        await viewer.getOrAddPlugin(GLTFAnimationPlugin)
+        await viewer.getOrAddPlugin(AnisotropyPlugin)
+        await viewer.getOrAddPlugin(TriplanarUVMappingPlugin)
+        await viewer.getOrAddPlugin(ThinFilmLayerPlugin)
+        await viewer.getOrAddPlugin(FragmentClippingExtensionPlugin)
+        await viewer.getOrAddPlugin(NoiseBumpMaterialPlugin)
+        await viewer.getOrAddPlugin(CustomBumpMapPlugin)
+        await viewer.getOrAddPlugin(ClearcoatTintPlugin)
+        await viewer.getOrAddPlugin(GLTFKHRMaterialVariantsPlugin)
+        await viewer.getOrAddPlugin(VelocityBufferPlugin, false)
+        await viewer.getOrAddPlugin(TemporalAAPlugin)
+        await viewer.getOrAddPlugin(CameraViewPlugin)
+        await viewer.getOrAddPlugin(RandomizedDirectionalLightPlugin, false)
+        await viewer.getOrAddPlugin(HDRiGroundPlugin, false)
+        await viewer.getOrAddPlugin(DepthOfFieldPlugin, false)
+        await viewer.getOrAddPlugin(SSContactShadows, false)
+        await viewer.getOrAddPlugin(SSGIPlugin, false)
+        await viewer.getOrAddPlugin(NormalBufferPlugin, false)
+        await viewer.getOrAddPlugin(SSBevelPlugin, false)
+        await viewer.getOrAddPlugin(KTX2LoadPlugin)
+        await viewer.getOrAddPlugin(ObjMtlLoadPlugin)
+        await viewer.getOrAddPlugin(FBXLoadPlugin)
+        await viewer.getOrAddPlugin(Rhino3dmLoadPlugin)
+        await viewer.getOrAddPlugin(STLLoadPlugin)
+        await viewer.getOrAddPlugin(EXRLoadPlugin)
+        await viewer.getOrAddPlugin(GLTFMeshOptPlugin) // for EXT_meshopt_compression in gltf, Only for decode.
+        await viewer.getOrAddPlugin(PresetLibraryPlugin)
+        await viewer.getOrAddPlugin(SceneLoopPlugin)
+        await viewer.getOrAddPlugin(ParallaxCameraControllerPlugin)
+        if (bloom) await viewer.getOrAddPlugin(BloomPlugin)
+        if (ground) await viewer.getOrAddPlugin(GroundPlugin)
+        // await viewer.getOrAddPlugin(ContactShadowGroundPlugin)
+    
+        viewer.renderer.refreshPipeline()
+    }
+
+
+
+    const setupViewer = useCallback(async () => {
+
+        const viewer = new ViewerApp({
+            canvas: canvasRef.current,
+            useRgbm: true
+        })
+
+
+        await addBasePluginsCustom(viewer, {importPopup: true});
+  
+    // This must be called after adding any plugin that changes the render pipeline.
+    viewer.renderer.refreshPipeline();
+  
+    // Load a 3d model.
+    await viewer.load('../assets/robots.glb');
+  
+  
+    },
+        []);
+
+    useEffect(()=>{
+        setupViewer();
+    },[]);
+
+    return (<div id="webgi-canvas-container">
+        <canvas id='webgi-canvas' ref={canvasRef} />
+    </div>);
+}
+
+export default WebGiViewer;

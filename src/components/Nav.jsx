@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from '../assets/k.jpg'
 import { faK } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faStackOverflow, faDiscord } from '@fortawesome/free-brands-svg-icons';
