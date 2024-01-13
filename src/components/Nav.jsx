@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from '../assets/k.jpg'
+import { faK } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faStackOverflow, faDiscord } from '@fortawesome/free-brands-svg-icons';
 
@@ -11,7 +12,7 @@ function Nav() {
             <div className="nav-content">
                 <ul className="list-styled">
                     <li>
-                        <img src={Logo} alt='logo' />
+                    <FontAwesomeIcon className="icon k" icon={faK} /> 
                     </li>
                     {/* <li>
                         <a className="link-styled">About</a>
