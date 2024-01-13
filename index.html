@@ -1,24 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Website</title>
-</head>
-<body>
-  <h1>Hello Krisha!</h1>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const urlParts = window.location.pathname.split('/');
-      const lastPart = urlParts[urlParts.length - 1];
-      const [param, variableString] = lastPart.split('=');
-      if (param === 'variable' && variableString) {
-        localStorage.setItem('customVariable', variableString);
-        console.log('Variable String stored in local storage:', variableString);
-        window.location.replace('/');
-      }
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
