@@ -41,3 +41,19 @@
     color: black;
     font-size: small;
 }
+
+.icon{
+    font-size: 15px;
+}
+
+.icon-list{
+    display: flex;
+    flex-direction: row;
+    width: 15%;
+    justify-content: flex-start;
+    align-items: center;
+
+    li{
+        margin:auto;
+    }
+}

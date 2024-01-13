@@ -1,5 +1,8 @@
 import React from "react";
 import Logo from '../assets/k.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faLinkedin, faStackOverflow, faDiscord } from '@fortawesome/free-brands-svg-icons';
+
 import './Nav.css'
 
 function Nav() {
@@ -35,8 +38,22 @@ function Nav() {
                         <a className="link-styled">Certificates</a>
                     </li>
                     <li>
-                        <a className="link-styled">Educations</a>
+                        <a className="link-styled">Education</a>
                     </li>
+                    <ul className="icon-list">
+                    <li>
+                        <a className="link-styled icon "><FontAwesomeIcon icon={faGithub} /></a>
+                    </li>
+                    <li>
+                        <a className="link-styled icon"><FontAwesomeIcon icon={faLinkedin} /></a>
+                    </li>
+                    <li>
+                        <a className="link-styled icon"><FontAwesomeIcon icon={faStackOverflow} /></a>
+                    </li>
+                    <li>
+                        <a className="link-styled icon"><FontAwesomeIcon icon={faDiscord} /></a>
+                    </li>
+                    </ul>
                 </ul>
             </div>
 
